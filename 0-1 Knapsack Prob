@@ -1,0 +1,27 @@
+In 0/1 Knapsack- Either we take the item or we leave the item, also we have limited quantity of items.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version1 - Non-DP,just recursive solution
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+value = [24,18,18,10]
+weight = [24,10,10,7]
+W = 25
+n = len(value)-1  # last index of value or weight array
+
+_______________________________________________________________________________________________________________________________________
+def knapsack(weight,value,W,n):
+    if n == 0 or W == 0:
+        return 0
+    # n = 0 means nothing to steal and W = 0 means no bag to fill
+    if weight[n] <= W:
+        return max(value[n]+knapsack(weight,value,W-weight[n],n-1),knapsack(weight,value,W,n-1))
+
+    elif weight[n] > W:
+        return knapsack(weight,value,W,n-1)
+
+print(knapsack(weight,value,W,n))
+________________________________________________________________________________________________________________________________________---
+
+Version2 - Dp with memo (Top Down approach)
+
