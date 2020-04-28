@@ -25,3 +25,42 @@ ________________________________________________________________________________
 
 Version2 - Dp with memo (Top Down approach)
 
+Since we have two changing values (capacity W and currentIndex n) in our recursive function knapsack()
+we can use a two-dimensional array to store the results of all the solved sub-problems. dp[n][w]
+dp matrix will have col = all possible weights ie W+1
+and rows = n+1
+As mentioned above, we need to store results for every sub-array (i.e. for every possible index ‘n’) 
+and for every possible capacity ‘W’.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+value = [24,18,18,10]
+weight = [24,10,10,7]
+W = 25
+n = len(value)-1
+_______________________________________________________________________________________________________________________________________---
+rows = n+1
+cols = W+1
+
+dp = []  # creating table to store the result
+for _ in range(rows):
+    dp.append([-1]*cols)
+
+def knapsack(weight,value,W,n):
+    if n == 0 or W == 0:
+        return 0
+    # n = 0 means nothing to steal and W = 0 means no bag to fill
+    if dp[n][W] != -1:
+        return dp[n][w]
+    else:
+        if weight[n] <= W:
+            dp[n][W] = max(value[n]+knapsack(weight,value,W-weight[n],n-1),knapsack(weight,value,W,n-1))
+            return dp[n][W]
+
+        elif weight[n] > W:
+            dp[n][W] =knapsack(weight,value,W,n-1)
+            return dp[n][W]
+
+print(knapsack(weight,value,W,n))
+
+_____________________________________________________________________________________________________________________________________
+
