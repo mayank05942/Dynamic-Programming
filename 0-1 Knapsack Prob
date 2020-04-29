@@ -86,3 +86,45 @@ for i in range(n+1):
             dp[i][j] = dp[i-1][j]
 print(dp[n][W])   # last value of the matrix will give the sol to the prob while lesser than that indexes are optimum sol to subprobs
 _____________________________________________________________________________________________________________________________________
+
+Version 3 - Bottom to Up approach ( Tabular Method);
+-----------------------------------------------------
+
+arr = [7,3,2,5,8]
+S = 14
+n = len(arr)
+
+_____________________________________________________________________________________________________________________________________
+# Step 1 - Create DP table with variables that can change
+dp = []
+for i in range(n+1):
+    dp.append([-1]*(S+1))
+
+# Step 2 - Do initalisation which is equal to recursive sol base case
+for i in range(n+1):
+    for j in range(S+1):
+        if j == 0:  # if sum is zero then empty subset is always one answer
+            dp[i][j] = True
+        if j > 0 and i == 0:  # if there is no element in set and we want sum greater than 0, it is not possible
+            dp[i][j] = False
+
+# Step 3 - convert the recursion calls into iterative solution
+for i in range(1,n+1):
+    for j in range(1,S+1):
+        if arr[i-1] <= j:
+            dp[i][j] = dp[i-1][j-arr[i-1]] or dp[i-1][j]
+
+        else:
+            dp[i][j] = dp[i-1][j]
+
+# To print DP table
+# for i in range(n+1):
+#     for j in range(S+1):
+#         print(dp[i][j], end  =" ")
+#     print()
+
+
+print(dp[n][S])
+
+____________________________________________________________________________________________________________________________________
+
