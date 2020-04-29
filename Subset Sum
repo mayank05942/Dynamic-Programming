@@ -1,0 +1,63 @@
+
+
+-------------------------------
+Version 1 - Recursive (Non-DP)
+-------------------------------
+arr = [3, 34, 4, 12, 5, 2]
+S = 9
+n = len(arr)
+
+_________________________________________________________________________________________________________________________________________
+def subset_sum(arr,n,S):
+    # base case
+    if n == 0 and S > 0:  # if len(arr) is 0 ie no element in array then sum cannot be greater than 0
+        return False
+
+    if S == 0: # Empty subset will satisfy the condition
+        return True
+
+    if arr[n-1] <= S:
+        return subset_sum(arr,n-1,S-arr[n-1]) or subset_sum(arr,n-1,S)  # Either include the element OR do not include it
+
+    elif arr[n-1] > S:
+        return subset_sum(arr,n-1,S)
+
+print(subset_sum(arr,n,S))
+___________________________________________________________________________________________________________________________________________
+
+Version 2- Top to Bottom (DP):
+--------------------------------
+
+arr = [7,3,2,5,8]
+S = 14
+n = len(arr)
+
+_______________________________________________________________________________________________________________________________________
+dp = []  # to store results
+for _ in range(n+1):
+    dp.append([-1]*(S+1))
+
+def subset_sum(arr,n,S):
+    # base case
+    if n == 0 and S > 0:  # if len(arr) is 0 ie no element in array then sum cannot be greater than 0
+        return False
+
+    if S == 0: # Empty subset will satisfy the condition
+        return True
+
+    if dp[n][S] != -1:     # before going to recursion first check if it already in table to not
+        return dp[n][S]    # if yes return it
+    else:                  # else go in recursion and put the ans in table for future reference.
+        if arr[n-1] <= S:
+            dp[n][S] = subset_sum(arr,n-1,S-arr[n-1]) or subset_sum(arr,n-1,S)  # Either include the element OR do not include it
+            return dp[n][S]
+
+        elif arr[n-1] > S:
+            dp[n][S] =subset_sum(arr,n-1,S)
+            return dp[n][S]
+
+print(subset_sum(arr,n,S))
+________________________________________________________________________________________________________________________________________
+
+
+
