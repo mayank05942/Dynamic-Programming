@@ -63,4 +63,26 @@ def knapsack(weight,value,W,n):
 print(knapsack(weight,value,W,n))
 
 _____________________________________________________________________________________________________________________________________
+Version 3 - Bottom to up approach (Table method):
 
+Idea is to convert recursive sol to iterative sol for faster results
+
+value = [60,100,120]
+weight = [10,20,30]
+W = 50
+n = len(value)
+_______________________________________________________________________________________________________________________________________
+dp = []   # create a table of size nxW
+for i in range(n+1):
+    dp.append([-1]*(W+1))
+
+for i in range(n+1):
+    for j in range(W+1):    # i is the idx in value or weight matrix and j represents different values of W
+        if i == 0 or j == 0:  # base condition ------> initilisation in matrix
+            dp[i][j] = 0
+        elif weight[i-1] <= j:  #  converting recursive sol to iterative sol by changing functional calls to matrix values
+            dp[i][j] = max(value[i-1]+dp[i-1][j-weight[i-1]],dp[i-1][j])
+        else:
+            dp[i][j] = dp[i-1][j]
+print(dp[n][W])   # last value of the matrix will give the sol to the prob while lesser than that indexes are optimum sol to subprobs
+_____________________________________________________________________________________________________________________________________
