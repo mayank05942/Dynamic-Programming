@@ -11,6 +11,11 @@ class Solution:
         if x % 2 != 0:
             return False
         else:
+             # If sum is equal partition may or may not be possible.
+             # Ex: [1,2,5] in this case sum = 8 but it cannot be partition into two subsets of equal sum
+             # another Examples is [2,2,3,5] , sum = 12 again cannot be partitioned.
+             
+             Therfore we have to check wheather partition is possible or not.
              
             # Now the prob reduces to subset sum problem
             if a subset is present in the arr which have the sum half of the orgininal then by even property other one will
