@@ -1,0 +1,46 @@
+Problem : https://www.geeksforgeeks.org/partition-a-set-into-two-subsets-such-that-the-difference-of-subset-sums-is-minimum/
+
+_____________________________________________________________________________________________________________________________________
+arr = [14,25,78,96]  # correct ans = 7
+
+------------------------------------------------------------------------------------------------------------------------------
+S = sum(arr)  # Max range of possible values of S1 or S2
+
+# Write the code of subset sum: [Bottom to up approach is followed]
+
+n = len(arr)
+dp = []
+for _ in range(n+1):
+    dp.append([-1]*(S+1))
+
+
+for i in range(n+1):
+    for j in range(S+1):
+        if j == 0 and i >= 0:
+            dp[i][j] = True
+        if j > 0 and i == 0:
+            dp[i][j] = False
+
+for i in range(1,n+1):
+    for j in range(1,S+1):
+        if arr[i-1] <= j:
+            dp[i][j] = dp[i-1][j-arr[i-1]] or dp[i-1][j]
+        else:
+            dp[i][j] = dp[i-1][j]
+
+# Now seperate out the last row
+temp = dp[-1]
+
+# Now find the possible values of S1. We will look it for half the possible range.
+
+candidates = []
+for i in range(S//2):
+    if temp[i] == True:
+        candidates.append(i)  # seprated out the candidates
+
+num = float('inf')
+for s1 in candidates:
+    num = min(num, S-2*s1)  # now for every possible candidate of s1 find  (S-2*s1) and return the min one.
+
+print(num)
+
