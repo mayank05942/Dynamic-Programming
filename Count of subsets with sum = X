@@ -1,0 +1,33 @@
+-----------------------------------------
+Version 1: Recursive (Non-DP) solution:
+------------------------------------------
+arr = [1,2,3]
+S = 5
+n = len(arr)
+
+______________________________________________________________________________________________________________________________________
+def count_subset(arr,S,n):
+    # base case:
+    if n > 0 and S == 0:  # empty subset
+        return 1
+
+    if n == 0 and S == 0:
+        return 1   # empty subset is one sol
+
+    if S > 0 and n == 0:  # if there is no element no subset is possible whose sum is greater than 0
+        return 0
+
+    if arr[n-1] <= S:
+        return count_subset(arr,S-arr[n-1],n-1) + count_subset(arr,S,n-1)
+
+    elif arr[n-1] > S:
+        return count_subset(arr,S,n-1)
+
+
+print(count_subset(arr,S,n))
+________________________________________________________________________________________________________________________________________
+
+---------------------------
+Version 2- Top-Down (DP):
+--------------------------
+
