@@ -31,3 +31,76 @@ ________________________________________________________________________________
 Version 2- Top-Down (DP):
 --------------------------
 
+arr = [1,2,3,3]
+S = 6
+n = len(arr)
+
+______________________________________________________________________________________________________________________________________
+dp = []
+for _ in range(n+1):
+    dp.append([-1]*(S+1))
+
+def count_subset(arr,S,n):
+    # base case:
+    if n > 0 and S == 0:  # empty subset
+        return 1
+
+    if n == 0 and S == 0:
+        return 1   # empty subset is one sol
+
+    if S > 0 and n == 0:  # if there is no element no subset is possible whose sum is greater than 0
+        return 0
+        
+    if dp[n][S] != -1:
+        return dp[n][S]
+
+    else:
+        if arr[n-1] <= S:
+            dp[n][S] =count_subset(arr,S-arr[n-1],n-1) + count_subset(arr,S,n-1)
+            return dp[n][S]
+
+        elif arr[n-1] > S:
+            dp[n][S]= count_subset(arr,S,n-1)
+            return dp[n][S]
+
+
+print(count_subset(arr,S,n))
+______________________________________________________________________________________________________________________________________
+-------------------------------------
+Version 3- Bottom-Up (DP) solution:
+--------------------------------------
+arr = [1,2,3,3]
+S = 6
+n = len(arr)
+_______________________________________________________________________________________________________________________________________
+dp = []
+for _ in range(n+1):
+    dp.append([-1]*(S+1))
+
+# perform initilisation:
+
+for i in range(n+1):
+    for j in range(S+1):
+        if j == 0:
+            dp[i][j] = 1
+        if i == 0 :
+            dp[i][j] = 0
+
+dp[0][0] = 1
+
+# Recursive ----> Iterative
+
+for i in range(1,n+1):
+    for j in range(1,S+1):
+        if arr[i-1] <= j:
+            dp[i][j] = dp[i-1][j-arr[i-1]] + dp[i-1][j]
+        else:
+            dp[i][j] = dp[i-1][j]
+
+
+print(dp[n][S])
+_____________________________________________________________________________________________________________________________________
+
+
+
+
