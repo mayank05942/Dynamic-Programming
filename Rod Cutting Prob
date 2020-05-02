@@ -1,0 +1,65 @@
+Problem: Find best way to cut a rod of length n
+Given: rod of length n
+
+Assume that each length rod has a price pi
+
+Find best set of cuts to get maximum revenue.
+Each cut is integer length
+Can use any number of cuts, from 0 to n−1
+No cost for a cut
+Finding an optimal solution requires solutions to multiple subproblems
+
+Given the rod values below:
+Given a rod of length 4, what is the maximum revenue.
+
+Example rod lengths and values:
+length i	1	2	3	4	5	6	7	8
+price pi	1	5	8	9	10	17	17	20
+
+Possible Rod Cuts
+Example - rod of length 4 (assuming values for 1-4, above):
+Cut Lengths	Value
+4 (ie no cuts)	9
+1, 3	1 + 8 = 9
+2, 2	5 + 5 = 10
+3, 1	8 + 1 = 9
+1, 1, 2	1 + 1 + 5 = 7
+1, 2, 1	1 + 5 + 1 = 7
+2, 1, 1	5 + 1 + 1 = 7
+1, 1, 1, 1	1 + 1 + 1 + 1 = 4
+
+Best: two 2-inch pieces = revenue of p2+p2=5+5=10
+________________________________________________________________________________________________________________________________________
+Code:
+
+
+L = 5
+profit = [2,5,9,8]
+length = [1, 2,3,4]
+n = len(profit)
+dp = []
+for _ in range(n+1):
+    dp.append([-1]*(L+1))
+
+#initialisation:
+
+for i in range(n+1):
+    for j in range(L+1):
+        if i == 0:
+            dp[i][j] = 0
+        if j == 0:
+            dp[i][j] = 0
+
+# recursive --> to iterative
+
+for i in range(1,n+1):
+    for j in range(1,L+1):
+        if length[i-1] <= j:
+            dp[i][j] = max(profit[i-1]+ dp[i][j-length[i-1]],dp[i-1][j])
+        else:
+            dp[i][j] = dp[i-1][j]
+
+print(dp[n][L])
+
+
+
