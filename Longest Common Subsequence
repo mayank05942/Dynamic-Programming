@@ -1,0 +1,15 @@
+ Method 1 - Non DP --> Will give TLE
+ 
+ class Solution:
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        n1 = len(text1)
+        n2 = len(text2)
+        def LCS(text1,text2,n1,n2):
+            if n1 == 0 or n2 == 0:  # if any of the two string is empty then LCS will be 0
+                return 0
+            if text1[n1-1] == text2[n2-1]:   # Choice 1  is last element of both string matches
+                return 1 + LCS(text1,text2,n1-1,n2-1)  # +1 because last one is one common string
+            else:
+                return max(LCS(text1,text2,n1-1,n2),LCS(text1,text2,n1,n2-1))  # else there are two possible cases and we have to select max of them
+
+        return LCS(text1,text2,n1,n2)
