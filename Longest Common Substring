@@ -1,5 +1,7 @@
 # Variation of Longest common subsequence
 
+Leetcode: https://leetcode.com/problems/maximum-length-of-repeated-subarray/submissions/   
+
 text1 = "abcdxyz"
 text2 = "xyzabcd"
 m = len(text1)
