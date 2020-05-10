@@ -1,0 +1,32 @@
+
+
+
+Variant 1 : Find the length of SCS:
+------------------------------------
+
+Method: Worst Case length - LCS length
+=======
+
+Worst case is when we join both the string and then calculate the length ----> it will be the biggest SCS
+
+Since LCS contains all the common elements in the both the string hence subtracting it will worstcase will result in SCS length.
+
+______________________________________________________________________________________________________________________________________
+class Solution:
+    def shortestCommonSupersequence(self, str1: str, str2: str) -> str:
+        worst_case = str1+str2
+        len_worst_case = len(worst_case)
+        m = len(str1)
+        n = len(str2)
+        def LCS(str1,str2,m,n):
+            if m == 0 or n == 0:
+                return 0
+            elif str1[m-1] ==  str2[n-1]:
+                return 1+LCS(str1,str2,m-1,n-1)
+            
+            else:
+                return max(LCS(str1,str2,m-1,n),LCS(str1,str2,m,n-1))
+            
+        return len_worst_case - LCS(str1,str2,m,n)
+        
+____________________________________________________________________________________________________________________________________
