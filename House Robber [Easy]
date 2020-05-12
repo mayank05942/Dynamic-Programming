@@ -1,0 +1,32 @@
+Prob: https://leetcode.com/problems/house-robber/
+
+____________________________________________________________________________________________________________________________________
+Explanation: Similar to Knapsack but much diluted
+
+Choice Diagram:  Start from the last item in the array:
+
+We have two options either select it or reject it
+
+1- If select -->   arr[n-1] + rob(arr,n-2)   as we cannot rob adjacent houses hence move n to n-2
+2- If not select --- >  rob(arr,n-1)    look for next element
+
+Base Case of Recursion:  Let n = len(arr)  so if n <= 0 ---> nothing to rob hence return 0
+
+_____________________________________________________________________________________________________________________________________
+
+Code:  Memo - DP solution
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [-1]*(n+1)
+        def rob(arr,n):
+            if n <= 0:
+                return 0
+            elif dp[n] != -1:
+                return dp[n]
+            else:
+                dp[n] = max(arr[n-1]+rob(arr,n-2),rob(arr,n-1))
+                return dp[n]
+            
+        return rob(nums,n)
