@@ -30,3 +30,26 @@ class Solution:
                 return dp[n]
             
         return rob(nums,n)
+        
+_____________________________________________________________________________________________________________________________________
+
+Code: Tabular:
+
+class Solution:
+    def rob(self, arr: List[int]) -> int:
+        if len(arr) == 0:
+            return 0
+        
+        n = len(arr)
+        
+        dp = [-1]* (n+1)
+        
+        # initlisation
+        dp[0] = 0   # when there is no house
+        dp[1] = arr[0]  # when there is one house
+
+        for i in range(2,n+1):
+            dp[i] = max(arr[i-1]+dp[i-2],dp[i-1])  # DP
+        
+        return dp[n]
+        
