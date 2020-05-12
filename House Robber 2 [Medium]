@@ -1,0 +1,54 @@
+Prob: https://leetcode.com/problems/house-robber-ii/
+
+____________________________________________________________________________________________________
+
+Explanation:
+
+This is an extension of House Robber. There are two cases here
+1) 1st element is included and last is not included 
+2) 1st is not included and last is included.
+Therefore, we can use the similar dynamic programming approach to scan the array twice and get the larger value.
+
+____________________________________________________________________________________________________
+Code:
+
+class Solution:
+    def rob(self, arr: List[int]) -> int:
+    
+    # base cases
+    
+        if len(arr) == 0:
+            return 0
+        
+        if len(arr) == 1:
+            return arr[0]
+        
+        if len(arr) == 2:
+            return max(arr)
+        
+        def rob1(arr):
+            n = len(arr)
+            
+            dp = [-1]* (n+1)
+            
+            dp[0] = 0
+            dp[1] = arr[0]
+            
+
+            for i in range(2,n+1):
+                dp[i] = max(arr[i-1]+dp[i-2],dp[i-1])
+            return dp[n]
+            
+            
+        
+
+        a = arr[:-1]  # when last one is selected
+        b = arr[1:]  # when second last is selected
+
+        x1 = rob1(a)
+        x2 = rob1(b)
+
+        return max(x1,x2)
+
+        
+       
