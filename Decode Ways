@@ -1,0 +1,42 @@
+Prob: https://leetcode.com/problems/decode-ways/
+_________________________________________________________________________________________________________________________-
+
+Explanation: Comes under Fibonacci series dp problem pattern
+
+https://www.youtube.com/watch?v=qli-JCrSwuk
+
+________________________________________________________________________________________________________________________
+Code:
+
+class Solution:
+    def numDecodings(self, data: str) -> int:
+       
+        
+        n = len(data)
+        
+        dp = [-1]*(n+1)
+        
+        def ways(data,n):
+        
+            if n == 0: # means empty string
+                return 1
+             
+
+            i = len(data) - n
+            
+            if data[i] == "0":    # this will deal with "0" at begining and at the end.
+                return 0
+                
+            if dp[n] != -1:
+                return dp[n]
+            else:
+                
+                if n >= 2 and int(data[i:i+2]) <= 26:    # if length of string is greater than 2 and first two char are less than 26
+                    dp[n] = ways(data,n-1)+ ways(data,n-2)    # then there are two ways to approach
+                    return dp[n]
+                
+                else:
+                    dp[n] =ways(data,n-1)    # else only 1 way to appraoch
+                    return dp[n]
+
+        return ways(data,n)
