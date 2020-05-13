@@ -18,7 +18,7 @@ class Solution:
         
         def ways(data,n):
         
-            if n == 0: # means empty string
+            if n == 0: # means empty string and the orgininal string should have been empty string hence there is only 1 way of decoding it
                 return 1
              
 
