@@ -22,7 +22,7 @@ class Solution:
                 return 1
              
 
-            i = len(data) - n
+            i = len(data) - n     # defines the starting index of the letters we are defining
             
             if data[i] == "0":    # this will deal with "0" at begining and at the end.
                 return 0
