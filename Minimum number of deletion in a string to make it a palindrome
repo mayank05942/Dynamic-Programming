@@ -11,7 +11,7 @@ Hence ultimatley we have to find Longest Palindromic Subsequence
 
 and then to calculate how many char we have deleted to make it LPS can be calculated as follows:
 
-min # of deletions = len(string) - len(LPS)
+min # of deletions = len(string) - len(LPS)  where len(LPS) = len(LCS(str1,reverse_str1))
 
 _______________________________________________________________________________________________________________________________________
 Code:
