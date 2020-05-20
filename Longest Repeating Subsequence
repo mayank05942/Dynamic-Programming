@@ -1,0 +1,35 @@
+Prob: https://www.geeksforgeeks.org/longest-repeating-subsequence/
+_________________________________________________________________________________________________________________________
+
+Explanation:  we need to find the longest subsequence which is repeating in the string
+
+Here we can use a char only once hence if a char occur only once in a string there is no way it will be the part of the
+repeating subsequence ( in order to repeat there must be atleast two instances)
+
+Idea: is to find LCS(str,str) which a variation that when str[i-1] == str[j-1] , i != j
+
+________________________________________________________________________________________________________________________________
+
+Code:
+
+text = "aabebcdd"
+
+m,n = len(text),len(text)
+
+dp = []
+for _ in range(m+1):
+    dp.append([-1]*(n+1))
+
+for i in range(m+1):
+    for j in range(n+1):
+        if i == 0 or j == 0:
+            dp[i][j] = 0
+
+for i in range(1,m+1):
+    for j in range(1,n+1):
+        if text[i-1] ==  text[j-1] and i != j:      # only difference
+            dp[i][j] = 1 + dp[i-1][j-1]
+        else:
+            dp[i][j] = max(dp[i-1][j],dp[i][j-1])
+
+print(dp[m][n])
