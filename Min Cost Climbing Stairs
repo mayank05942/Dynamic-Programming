@@ -1,0 +1,31 @@
+Prob: https://leetcode.com/problems/min-cost-climbing-stairs/
+____________________________________________________________________________________________________________________________________
+
+Variation of climbing stairs prob and based on fibonacci series pattern
+
+____________________________________________________________________________________________________________________________________
+
+Code:
+
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        
+        n = len(cost)-1
+        dp = [-1] * (n+1)
+        
+        def jump(n):
+        
+            if n == 0:
+                return cost[0]   # note the base case
+                
+            if n == 1:
+                return cost[1]
+                
+            if dp[n] != -1:
+                return dp[n]
+            else:
+                dp[n] = cost[n]+  min( jump(n-1),jump(n-2))  # similiar to climbing stairs
+                return dp[n]
+
+
+        return min(jump(n),jump(n-1))   # as per the question we can start either from 0 or 1 index
