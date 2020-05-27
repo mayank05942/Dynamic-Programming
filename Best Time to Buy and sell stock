@@ -62,3 +62,23 @@ class Solution:
             
         return profit
   _____________________________________________________________________________________________________________________________________
+  
+  2- Best Time to buy and sell the stock II:
+   -------------------------------------------
+   
+   Code:
+   
+   class Solution:
+    def maxProfit(self, arr: List[int]) -> int:
+        profit = 0
+        for i in range(1,len(arr)):
+        
+            # we will only sell when current day price is higher than prev day price
+            # then only profit will be positive
+            #i.e higher-lower = positive
+            
+            if arr[i] > arr[i-1]:
+                profit += arr[i] - arr[i-1]
+        return profit
+        
+ _______________________________________________________________________________________________________________________________
