@@ -31,3 +31,34 @@ class Solution:
                     
         return ans
 ____________________________________________________________________________________________________________________________________
+
+Kadane solution (I Don't know)
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        
+        # When prices is null
+        
+        if not prices:
+            return 0
+        
+        profit = 0
+        
+        # Let's assume first elemment is the minimum stock value
+        minimumStockValue = prices[0]
+        
+        # Iterate through list
+        for i in range(len(prices)):
+            
+            # update the minimumStockValue if there's
+            # any smaller value is present in the list
+            
+            if minimumStockValue > prices[i]:
+                minimumStockValue = prices[i]
+            
+            # Now we've minimumStockValue, calculate the max of price diff and profit made till now
+            
+            profit = max((prices[i]-minimumStockValue),profit)
+            
+        return profit
+  _____________________________________________________________________________________________________________________________________
