@@ -66,7 +66,7 @@ class Solution:
   2- Best Time to buy and sell the stock II:
    -------------------------------------------
    
-   Code:
+   Code: Greedy Solution: Just take profit at every opportunity
    
    class Solution:
     def maxProfit(self, arr: List[int]) -> int:
