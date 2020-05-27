@@ -1,0 +1,33 @@
+1- Best time to buy and sell a stock I :
+   ______________________________________
+   
+Prob: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+------------------------------------------------------------------------
+
+DP Solution: --> TLE for last case.
+__________________________________________
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        dp = []
+        for _ in range(n):
+            dp.append([-1]*n)
+        
+        for i in range(n):
+            for j in range(n):
+                if i == j:
+                    dp[i][j] = 0
+                if j < i:
+                    dp[i][j] = 0
+                else:
+                    dp[i][j] = prices[j] - prices[i]
+        
+        ans = 0
+        for i in range(n):
+            for j in range(n):
+                if dp[i][j] > ans:
+                    ans = dp[i][j]
+                    
+        return ans
+____________________________________________________________________________________________________________________________________
