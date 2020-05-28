@@ -1,0 +1,63 @@
+Prob: https://leetcode.com/problems/counting-bits/submissions/
+__________________________________________________________________________________________________________________________
+
+Explanation: https://www.youtube.com/watch?v=PUSVTRzqEWE
+
+There is a pattern in number of 1's i.e:
+
+1- When the num is even = # 1's are always same
+2- When num is odd = # 1's = 1 + number_of_ones_in_(num//2)
+
+____________________________________________________________________________________________________________________________
+
+Code:
+
+1- Recursive:
+--------------
+
+class Solution:
+
+    def countBits(self, num: int) -> List[int]:
+    
+        def count(num):
+            if num == 0:
+                return 0
+
+            if num == 1:
+                return 1
+
+            if num % 2 == 0:
+                return count(num//2)
+            else:
+                return 1+count(num//2)
+        ans = []  
+        for i in range(num+1):
+            ans.append(count(i))
+            
+        return ans
+        
+ 2 - DP (Tabular):
+ ------------------
+ 
+ class Solution:
+    def countBits(self, num: int) -> List[int]:
+    
+        if num == 0:
+            return [0]
+            
+        dp = [0]*(num+1)
+        
+        dp[0] = 0  # Base Cases
+        dp[1] = 1
+        
+        for i in range(2,num+1): # dp solution
+            if i % 2 == 0:
+                dp[i] = dp[i//2]
+            else:
+                dp[i] = 1 + dp[i//2]
+                
+        return dp  # since we have to return the matrix
+        
+ 
+ 
+          
