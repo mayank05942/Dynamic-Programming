@@ -82,3 +82,77 @@ class Solution:
         return profit
         
  _______________________________________________________________________________________________________________________________
+ 
+ 3- Best Time to buy and sell stock -III:
+   -------------------------------------------
+   
+Explanation: https://www.youtube.com/watch?v=Pw6lrYANjz4
+_____________________________________________________________
+ 
+dp[k, i] = max(dp[k, i-1], prices[i] - prices[j] + dp[k-1, j-1]), j=[0..i-1]
+
+For k transactions, on i-th day we have two choices:
+
+1- if we don't trade then the profit is same as previous day dp[k, i-1]
+2- if we bought the share on j-th day where j=[0..i-1], then sell the share on i-th day then the profit is 
+    prices[i] - prices[j] + dp[k-1, j-1] .
+    
+Actually j can be i as well. When j is i, the one more extra item prices[i] - prices[j] + dp[k-1, j] = dp[k-1, i] 
+looks like we just lose one chance of transaction.
+ 
+ _________________________________________________________________________________________________________________________________
+ 
+ Time: O(nk) and same space
+ 
+ class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        def profit(prices,k):
+            
+            n = len(prices)
+
+            dp = []
+            for _ in range(k+1):
+                dp.append([0]*(n))
+
+            for t in range(1,k+1):   # Row: k transactions [0,1,2,...k]
+                localmax = float("-inf")
+                for d in range(1,n):  # days [1,2,3...n]
+                    
+                    # here dp[t-1][d-1] means max profit we had at day d-1 with only 1 transaction and then we subtracted prices[d-1] which means we have brought a stock at that day.
+                    localmax = max(localmax,-prices[d-1]+dp[t-1][d-1])
+                    
+                    # Here we are choosing between our two choices: don't sell at that day then we will retain the prev max proft i.e dp[t][d-1]  and sell at that price then it will be prices[d] + (-prices[d-1]+dp[t-1][d-1]) where () d is the optimum value choosen before.
+                    dp[t][d] = max(dp[t][d-1],localmax+prices[d])
+                    
+            return dp[-1][-1]
+        return profit(prices,2)
+________________________________________________________________________________________________________________________________________        
+4- Best time to buy and sell the stock -IV:
+
+Better optimized solution:  O(n)
+--------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
