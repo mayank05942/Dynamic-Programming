@@ -1,22 +1,12 @@
 # Dynamic-Programming
 
-Format:
+https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns/439810
 
-Prob:
+https://leetcode.com/discuss/general-discussion/662866/dp-for-beginners-problems-patterns-sample-solutions
+
+https://www.junhaow.com/lc/notes/dynamic-programming-notes.html
 _______________________________________________________________________________________________________________________________________
 
-Explanation:
+
 ________________________________________________________________________________________________________________________________________
 
-Code:
------
-
-1- Recursive:
-
-
-
-
-
-_________________________________________________________________________________________________________________________________________
-
-2 - DP solution
