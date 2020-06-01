@@ -1,13 +1,35 @@
-Prob:
+Prob: https://leetcode.com/problems/edit-distance/
 _______________________________________________________________________________________________________________________________________
 
 Explanation:
+1- https://www.youtube.com/watch?v=F469rXsQSP4&list=PLpO3gASfJEIJRnNG4q6QoHAYAATo466a_&index=17&t=0s
+2 - https://www.youtube.com/watch?v=OCsF6u-bLBc
 ________________________________________________________________________________________________________________________________________
 
 Code:
 -----
 
 1- Recursive:
+----------------
+
+def edit(word1,word2):
+
+    if len(word1) == 0:
+        return len(word2)
+
+    if len(word2) == 0:
+        return len(word1)
+
+    if word1[0] == word2[0]:
+        return edit(word1[1:m],word2[1:n])
+    else:
+        insert = edit(word1,word2[1:n])
+        deletion = edit(word1[1:m],word2)
+        replace = edit(word1[1:m],word2[1:n])
+
+        return 1 + min(insert,deletion,replace)
+
+return edit(word1,word2)
 
 
 
@@ -15,4 +37,35 @@ Code:
 
 _________________________________________________________________________________________________________________________________________
 
-2 - DP solution
+2 - DP solution:
+------------------
+
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        m = len(word1)
+        n = len(word2)
+        dp = []
+        for _ in range(m+1):
+            dp.append([0]*(n+1))
+            
+        for i in range(m+1):
+            for j in range(n+1):
+                
+                # Base case is to handle when one of the string will be empty
+                # make a table and check when one is empty and how many steps
+                # it will be required to make it equal-> normally del or insert ops
+                if i == 0: 
+                    dp[i][j] = j
+                if j == 0:
+                    dp[i][j] = i
+        
+        for i in range(1,m+1):
+            for j in range(1,n+1):
+                # if two char are same no operation will be done move ahead
+                if word1[i-1] == word2[j-1]:
+                    dp[i][j] = dp[i-1][j-1]
+                else:
+                # else we have 3 choices: insertion,del,replace
+                # select the one with min number of steps
+                    dp[i][j] = 1 + min(dp[i-1][j-1],dp[i][j-1],dp[i-1][j])
+        return dp[-1][-1]
