@@ -1,0 +1,59 @@
+Prob: https://www.geeksforgeeks.org/matrix-chain-multiplication-dp-8/
+_____________________________________________________________________________________________________________________________
+
+Explanation:
++++++++++++++
+
+When me multiply two matrix:   A = m*n  and B = n*p then # of multiplications in AxB will be (m*n*p) which is the cost of the
+matrix.
+
+Input Sytle: [40, 20, 30, 10, 30]  -> for n+1 size array we will have (n) matrix
+Here matrix are: 40x20 , 20x30 , 30x10 ,10x30
+
+Possible split:  ABCD ->   A(BCD)  -> A((BC)D) or A(B(CD))  # two splits were possible
+                           (AB)(CD) -> no further split
+                           (ABC)(D) -> (A(BC))(D) or ((AB)c)(D)
+                           
+For example, suppose A is a 10 × 30 matrix, B is a 30 × 5 matrix, and C is a 5 × 60 matrix:
+(AB)C ->     AB -> (10x5) matrix with cost-> (10x30x5)
+
+Now AB whose size is 10x5 will be multiplied with C whose size is 5x60 , # multiplications = 10x5x60
+
+Total multplications = 10x30x5 + 10x5x60 = 4500
+
+_______________________________________________________________________________________________________________________________
+
+Code:
+_____
+
+1- Recursive and memo:
+######################
+
+arr = [40,20,30,10,30]
+dp = []
+
+for _ in range(len(arr)):
+    dp.append([-1]*len(arr))
+    
+def mcm(arr,i,j):            # i start with front and j start with end and will move towards each other sort of binary search type
+
+    if i == j:    # when i == j means we don't have a matrix may be a vector hence no multpilications
+        return 0
+        
+    if dp[i][j] != -1:
+        return dp[i][j]
+    else:
+
+        global_min = float('inf')
+        
+        for k in range(i,j):    # k<- i to j-1     # k is used to split the array into two halfs
+        
+            dp[i][j] = mcm(arr,i,k) + mcm(arr,k+1,j)  + (arr[i-1]*arr[k]*arr[j])   # calling MCM in two smaller subprob and adding the cost
+            
+            global_min = min(dp[i][j],global_min)   # for different solutions keep the min one.
+            
+        return global_min
+
+print(mcm(arr,1,len(arr)-1))
+
+
