@@ -1,0 +1,62 @@
+Leetcode: https://leetcode.com/problems/partition-equal-subset-sum
+
+class Solution:
+    def canPartition(self, arr: List[int]) -> bool:
+    
+    # Step1 - Check if sum of the array is even or odd
+    # If it is odd then there is no way to partition it into two equal halves
+    # If it is even then we have to check
+    
+        x = sum(arr)
+        if x % 2 != 0:
+            return False
+        else:
+             # If sum is equal partition may or may not be possible.
+             # Ex: [1,2,5] in this case sum = 8 but it cannot be partition into two subsets of equal sum
+             # another Examples is [2,2,3,5] , sum = 12 again cannot be partitioned.
+             
+             Therfore we have to check wheather partition is possible or not.
+             
+            # Now the prob reduces to subset sum problem
+            if a subset is present in the arr which have the sum half of the orgininal then by even property other one will
+            also be same. Hence check if half sum subset if possible in the array or not.
+            
+            S = x//2
+            n = len(arr)
+
+
+            # Step 1 - Create DP table with variables that can change
+            dp = []
+            for i in range(n+1):
+                dp.append([-1]*(S+1))
+
+            # Step 2 - Do initalisation which is equal to recursive sol base case
+            for i in range(n+1):
+                for j in range(S+1):
+                    if j == 0:
+                        dp[i][j] = True
+                    if j > 0 and i == 0:
+                        dp[i][j] = False
+
+            # Step 3 - convert the recursion calls into iterative solution
+            for i in range(1,n+1):
+                for j in range(1,S+1):
+                    if arr[i-1] <= j:
+                        dp[i][j] = dp[i-1][j-arr[i-1]] or dp[i-1][j]
+
+                    else:
+                        dp[i][j] = dp[i-1][j]
+            return dp[n][S]
+
+     
+
+  
+
+
+
+
+
+
+
+        
+

@@ -1,0 +1,103 @@
+
+
+-------------------------------
+Version 1 - Recursive (Non-DP)
+-------------------------------
+arr = [3, 34, 4, 12, 5, 2]
+S = 9
+n = len(arr)
+
+_________________________________________________________________________________________________________________________________________
+def subset_sum(arr,n,S):
+    # base case
+    if n == 0 and S > 0:  # if len(arr) is 0 ie no element in array then sum cannot be greater than 0
+        return False
+
+    if S == 0: # Empty subset will satisfy the condition
+        return True
+
+    if arr[n-1] <= S:
+        return subset_sum(arr,n-1,S-arr[n-1]) or subset_sum(arr,n-1,S)  # Either include the element OR do not include it
+
+    elif arr[n-1] > S:
+        return subset_sum(arr,n-1,S)
+
+print(subset_sum(arr,n,S))
+___________________________________________________________________________________________________________________________________________
+
+Version 2- Top to Bottom (DP):
+--------------------------------
+
+arr = [7,3,2,5,8]
+S = 14
+n = len(arr)
+
+_______________________________________________________________________________________________________________________________________
+dp = []  # to store results
+for _ in range(n+1):
+    dp.append([-1]*(S+1))
+
+def subset_sum(arr,n,S):
+    # base case
+    if n == 0 and S > 0:  # if len(arr) is 0 ie no element in array then sum cannot be greater than 0
+        return False
+
+    if S == 0: # Empty subset will satisfy the condition
+        return True
+
+    if dp[n][S] != -1:     # before going to recursion first check if it already in table to not
+        return dp[n][S]    # if yes return it
+    else:                  # else go in recursion and put the ans in table for future reference.
+        if arr[n-1] <= S:
+            dp[n][S] = subset_sum(arr,n-1,S-arr[n-1]) or subset_sum(arr,n-1,S)  # Either include the element OR do not include it
+            return dp[n][S]
+
+        elif arr[n-1] > S:
+            dp[n][S] =subset_sum(arr,n-1,S)
+            return dp[n][S]
+
+print(subset_sum(arr,n,S))
+________________________________________________________________________________________________________________________________________
+
+Version 3 - Bottom up (Tabular):
+
+arr = [7,3,2,5,8]
+S = 14
+n = len(arr)
+
+
+# Step 1 - Create DP table with variables that can change
+dp = []
+for i in range(n+1):
+    dp.append([-1]*(S+1))
+
+# Step 2 - Do initalisation which is equal to recursive sol base case
+for i in range(n+1):
+    for j in range(S+1):
+        if j == 0:
+            dp[i][j] = True
+        if j > 0 and i == 0:
+            dp[i][j] = False
+
+# Step 3 - convert the recursion calls into iterative solution
+for i in range(1,n+1):
+    for j in range(1,S+1):
+        if arr[i-1] <= j:
+            dp[i][j] = dp[i-1][j-arr[i-1]] or dp[i-1][j]
+
+        else:
+            dp[i][j] = dp[i-1][j]
+
+# To print DP table
+# for i in range(n+1):
+#     for j in range(S+1):
+#         print(dp[i][j], end  =" ")
+#     print()
+
+
+print(dp[n][S])
+
+
+
+
+

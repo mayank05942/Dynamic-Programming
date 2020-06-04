@@ -1,0 +1,37 @@
+
+
+_____________________________________________________________________________________________________________________________
+arr = [1,1,2,3]
+D = 1
+# ans = 3
+
+
+# find how many possible subsets are there whose differnce is 1
+
+sum_s1 = (D + sum(arr))//2
+
+# Now question reduces to count the subsets with sum = sum_s1
+n = len(arr)
+
+dp = []
+for i in range(n+1):
+    dp.append([-1]*(sum_s1+1))
+
+for i in range(n+1):
+    for j in range(sum_s1+1):
+        if j == 0:
+            dp[i][j] = 1
+
+        if j > 0 and i == 0:
+            dp[i][j] = 0
+
+for i in range(1,n+1):
+    for j in range(1,sum_s1+1):
+        if arr[i-1] <= j:
+            dp[i][j] = dp[i-1][j-arr[i-1]] + dp[i-1][j]
+        else:
+            dp[i][j] = dp[i-1][j]
+
+print(dp[n][sum_s1])
+
+
