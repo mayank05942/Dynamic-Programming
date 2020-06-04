@@ -1,0 +1,39 @@
+Prob: https://leetcode.com/problems/climbing-stairs/submissions/
+
+____________________________________________________________________________________________________________________________
+Explanation:
+
+Choice Diagram:  Let we are at the top of the stairs now there are two ways to climb down
+1- take 1 step
+2 - take 2 step
+
+hence climb(n-1)+climb(n-2)
+
+Base Cases:
+
+if n <= 0, then the number of ways should be zero.
+if n == 1, then there is only way to climb the stair.
+if n == 2, then there are two ways to climb the stairs. One solution is one step by another; the other one is two steps at one time.
+
+________________________________________________________________________________________________________________________________
+
+Code:
+
+class Solution:
+    
+    def climbStairs(self, n: int) -> int:
+        dp = [-1]*(n+1)
+        def climb(n):
+            if n == 0:
+                return 0
+            if n == 1:
+                return 1
+            if n == 2:
+                return 2
+            elif dp[n] != -1:
+                return dp[n]
+            else:
+                dp[n] = climb(n-1)+climb(n-2)
+                return dp[n]
+            
+        return climb(n)
