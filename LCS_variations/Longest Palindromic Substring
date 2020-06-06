@@ -1,0 +1,112 @@
+Prob: https://leetcode.com/problems/longest-palindromic-substring/
+______________________________________________________________________________________________________________________________
+
+Explanation:
+
+_______________________________________________________________________________________________________________________________
+
+Code:
+------
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s:
+            return ""
+        dp = []
+        for _ in range(len(s)):
+            dp.append([0]*(len(s)))
+            
+        for i in range(len(s)):
+            for j in range(len(s)):
+                if i == j:
+                    dp[i][j] = 1
+                
+        max_len = 1
+        start = 0
+        end = 0
+        
+        for i in range(len(s)-1,-1,-1):
+            for j in range(len(s)-1,i,-1):
+               # print(i,j)
+                if (j-i) == 1 and s[i] == s[j]:
+                    dp[i][j] = 2
+                    
+                elif (j-i) > 1 and s[i] == s[j] and dp[i+1][j-1] > 0:
+                    dp[i][j] = (j-i+1)
+                    
+                current_len = (j-i+1)
+                
+                if dp[i][j] and  current_len > max_len:
+                    start = i
+                    end  = j
+                    max_len = current_len
+        
+        return s[start:end+1]
+        
+ __________________________________________________________________________________________________________________________________
+ 
+ # Code to print the length:
+ ------------------------------
+ 
+ 
+s = "cbbd"
+dp = []
+for _ in range(len(s)):
+    dp.append([0]*len(s))
+
+for i in range(len(s)):
+    for j in range(len(s)):
+        if i  == j:
+            dp[i][j] = 1
+
+maxLength = 1  # since one char is always palindromic
+
+#iterating backwards
+
+# We have to handle three different cases here:
+# if the length of the string is 1: then it is base case always palandromic
+# if the length of the string is 2: then we have to verify the constraint that s[i] ==  s[j]
+# when the length of the string is greater than 3: we have to use the prev results to get ans
+
+# if j-i > 1: the check j == i and if  content between j and i is palandromic then the entire string
+# is palindromic
+
+for i in range(len(s) - 1, -1, - 1):  # filling table backwards
+    for j in range(len(s) - 1, i, - 1):
+        print(i,j)
+
+        if j - i == 1 and s[i] == s[j]:   # if the length of the string is two then we can determine by checking the condition that s[i] == s[j]
+            dp[i][j] = 2
+
+        elif s[i] == s[j] and dp[i+1][j-1] > 0:  # if the length of the string is >2:
+            # if the end char are same then check if the middle part is palindromic or not
+            # this is done by checking wheather the middle part if True is dp table or not.
+            dp[i][j] = (j-i+1)
+
+        curLen = j - i + 1
+
+gm = 0
+for i in range(len(s)):
+    for j in range(len(s)):
+        if dp[i][j] > gm:
+            gm = dp[i][j]
+
+print(gm)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+                    
+        
