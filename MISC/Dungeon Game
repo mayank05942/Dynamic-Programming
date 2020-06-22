@@ -1,0 +1,70 @@
+Prob: https://leetcode.com/problems/dungeon-game/
+________________________________________________________________________________________________________________________________
+
+Explanation:
+
+This is variation of Min path sum prob.
+
+Here we have to do bottom up approach rather than top down approach.
+                  ---------------------
+
+Idea is to start with end of the grid:
+
+There are two possibilties:
+1- Cost there is positive = Replace it with 0 means to reach here from either up or left we don't require any special HP (although min is 1 but we will take care of it later)
+2- Cost there is neagtive = We need some HP ---> leave it as it is
+
+Hence dp[-1][-1] = min(0,arr[-1][-1])
+
+Now we could have come from left or up:
+
+For left:
+i = m-1 means last row
+
+There are again two possibilties:
+1- Cost at the point is positive hence again to reach there we don't need any additional HP hence 0
+2- Cost at that point is negative hence we need additional cost of abs(arr[i][j]+dp[i][j+1]) + 1 to reach at last value
+
+dp[m-1][j] = min(0,arr[i][j]+dp[i][j+1])
+
+Similar is for the Up case.
+
+dp[i][n-1] = min(0,arr[i][j]+dp[i+1][j])
+
+Now there all are sort of base cases for us. Now we will fill the rest of the table as:
+
+dp[i][j] = min(0,max(dp[i][j+1],dp[i+1][j])
+
+which means we have two paths right and down hence we have to follow that path where the cost is max because max cost represent the path
+where we will save max heath or can gain some.
+
+
+
+
+__________________________________________________________________________________________________________________________________
+
+Code:
+
+class Solution:
+    def calculateMinimumHP(self, arr: List[List[int]]) -> int:
+        m = len(arr)
+        n = len(arr[0])
+        dp = [[0]*(n) for _ in range(m)]
+
+        for i in range(m-1,-1,-1):
+            for j in range(n-1,-1,-1):
+
+                if i == m-1 and j == n-1:
+                    dp[i][j] = min(0,arr[i][j])  # each entry represents the prev heath required to each from dp[i][j-1] tp dp[i][j]
+
+                elif i == m-1:   # last row
+                    dp[i][j] = min(0,arr[i][j]+dp[i][j+1])
+
+                elif j == n-1:
+                    dp[i][j] = min(0,arr[i][j]+dp[i+1][j])
+
+                else:
+                    dp[i][j] = min(0,arr[i][j]+max(dp[i][j+1],dp[i+1][j]))
+
+
+        return abs(dp[0][0])+1
