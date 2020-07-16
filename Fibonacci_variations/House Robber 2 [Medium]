@@ -49,6 +49,36 @@ class Solution:
         x2 = rob1(b)
 
         return max(x1,x2)
+_____________________________________________________________________________________________________________________________________________________________
 
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+Note: since we are calling the function two times hence dict will be given as an input argument
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        
+        
+        def profit(arr,n,d):
+            if n < 0: return 0
+            if n == 0: return arr[0]
+            if n not in d:
+                d[n] = max(arr[n] + profit(arr,n-2,d) , profit(arr,n-1,d))
+                return d[n]
+            else:
+                return d[n]
+        
+        a1 = nums[:-1]
+        a2 = nums[1:]
+        
+        x = profit(a1,len(a1)-1,{})
+        
+        y = profit(a2,len(a2)-1,{})
+        
+        return max(x,y)
         
        
