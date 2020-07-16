@@ -29,3 +29,27 @@ class Solution:
 
 
         return min(jump(n),jump(n-1))   # as per the question we can start either from 0 or 1 index
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
+
+class Solution:
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        d = {}
+        def min_cost(arr,n):
+            if n < 0: return 0
+            if n == 0: return arr[0]
+            if n == 1: return arr[1]
+            
+            if n in d:
+                return d[n]
+            else:
+                d[n] = arr[n]+min(min_cost(arr,n-1),min_cost(arr,n-2))
+                return d[n]
+
+        
+        n = len(cost)-1
+        x = min_cost(cost,n)
+        y = min_cost(cost,n-1)
+
+
+        return min(x,y)
