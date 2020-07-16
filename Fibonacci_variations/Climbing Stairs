@@ -37,3 +37,21 @@ class Solution:
                 return dp[n]
             
         return climb(n)
+        
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Draw the Tree diagram of the prob:
+
+d = {}
+def climb(n):
+    if n < 0 : return 0
+    if n == 0: return 1 # do nothing
+    if n == 1: return 1
+    if n == 2: return 2
+    if n in d:
+        return d[n]
+    else:
+        d[n] =climb(n-1) + climb(n-2)
+        return d[n]
+
+print(climb(38))
