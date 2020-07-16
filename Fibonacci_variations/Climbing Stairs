@@ -41,6 +41,7 @@ class Solution:
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Draw the Tree diagram of the prob:
+If needed help with Tree diagram: https://www.youtube.com/watch?v=NFJ3m9a1oJQ
 
 d = {}
 def climb(n):
