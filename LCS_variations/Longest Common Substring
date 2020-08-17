@@ -38,3 +38,26 @@ for i in range(m+1):   # Now return the substring with max length by returing th
 print(res)
 
 # cell of dp here represents longest common substring ending at m-1 th char in text1 & n-1 th char in text2
+
+_____________________________________________________________________________________________________________________________________________________________________
+
+Printing the larget common subarray or substring:
+--------------------------------------------------
+
+res = 0
+x,y = 0,0
+for i in range(m+1):   # Now return the substring with max length by returing the max value in dp
+    for j in range(n+1):
+        if dp[i][j] > res:
+            res = dp[i][j]
+            x,y = i,j
+
+arr = []
+
+while res:
+  arr.append(text2[y-1])
+  y -= 1
+  res -= 1
+arr = arr[::-1]
+print(arr)
+
