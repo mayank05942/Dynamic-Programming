@@ -10,37 +10,35 @@ Code:
 
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        if not s:
-            return ""
-        dp = []
-        for _ in range(len(s)):
-            dp.append([0]*(len(s)))
+        dp =[]
+        for i in range(len(s)):
+            dp.append([0]*len(s))
             
         for i in range(len(s)):
             for j in range(len(s)):
                 if i == j:
                     dp[i][j] = 1
-                
-        max_len = 1
+        
+        local_max = 0
+        global_max = 0
         start = 0
         end = 0
-        
         for i in range(len(s)-1,-1,-1):
             for j in range(len(s)-1,i,-1):
-               # print(i,j)
-                if (j-i) == 1 and s[i] == s[j]:
+                
+                if (j-i+1) == 2 and s[i] == s[j]:
                     dp[i][j] = 2
                     
-                elif (j-i) > 1 and s[i] == s[j] and dp[i+1][j-1] > 0:
+                if (j-i+1) > 2 and s[i] == s[j] and dp[i+1][j-1] > 0:
                     dp[i][j] = (j-i+1)
                     
-                current_len = (j-i+1)
+                local_max = (j-i+1)
                 
-                if dp[i][j] and  current_len > max_len:
+                if dp[i][j] > 0 and local_max > global_max:
+                    global_max = max(local_max,global_max)
                     start = i
-                    end  = j
-                    max_len = current_len
-        
+                    end = j
+                    
         return s[start:end+1]
         
  __________________________________________________________________________________________________________________________________
